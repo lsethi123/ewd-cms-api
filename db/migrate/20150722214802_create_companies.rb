@@ -8,6 +8,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :state
       t.string :phone
       t.string :email
+      t.belongs_to :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
