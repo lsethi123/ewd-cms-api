@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-
+  has_many :tasks
+  
   def set_user_token
     self.token = generate_user_token
   end
