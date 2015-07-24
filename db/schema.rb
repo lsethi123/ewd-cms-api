@@ -24,9 +24,12 @@ ActiveRecord::Schema.define(version: 20150722225522) do
     t.string   "state"
     t.string   "phone"
     t.string   "email"
+    t.integer  "team_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "companies", ["team_id"], name: "index_companies_on_team_id", using: :btree
 
   create_table "employees", force: :cascade do |t|
     t.string   "first_name"
@@ -69,19 +72,30 @@ ActiveRecord::Schema.define(version: 20150722225522) do
   add_index "tasks", ["employee_id"], name: "index_tasks_on_employee_id", using: :btree
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "password_digest"
     t.string   "token"
+    t.integer  "team_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
+  add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
+
+  add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
   add_foreign_key "opportunities", "companies"
   add_foreign_key "tasks", "companies"
   add_foreign_key "tasks", "employees"
   add_foreign_key "tasks", "users"
+  add_foreign_key "users", "teams"
 end
