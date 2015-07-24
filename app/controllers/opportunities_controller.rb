@@ -1,6 +1,10 @@
 class OpportunitiesController < ApplicationController
   def index
-    @opportunities = Opportunity.where(company_id: params[:company_id])
+    if params[:company_id]
+      @opportunities = Opportunity.where(company_id: params[:company_id])
+    else
+      @opportunities = Opportunity.all
+    end
     render json: @opportunities
   end
 

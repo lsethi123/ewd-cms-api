@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.where(company_id: params[:company_id])
+    if params[:company_id]
+      @tasks = Task.where(company_id: params[:company_id])
+    else
+      @tasks = Task.all
+    end
     render json: @tasks
   end
 

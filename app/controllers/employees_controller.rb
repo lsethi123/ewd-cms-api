@@ -1,6 +1,10 @@
 class EmployeesController < ApplicationController
   def index
-    @employees = Employee.where(company_id: params[:company_id])
+    if params[:company_id]
+      @employees = Employee.where(company_id: params[:company_id])
+    else
+      @employees = Employee.all
+    end
     render json: @employees
   end
 
