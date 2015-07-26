@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :posts, except: [:new, :edit]
+  resources :tags, except: [:new, :edit]
   resources :companies, except: [:new, :edit]
   resources :employees, except: [:new, :edit]
   resources :opportunities, except: [:new, :edit]

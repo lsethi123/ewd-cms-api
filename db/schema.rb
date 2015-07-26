@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725181604) do
+ActiveRecord::Schema.define(version: 20150725214741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,22 @@ ActiveRecord::Schema.define(version: 20150725181604) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tag_posts", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tag_posts", ["post_id"], name: "index_tag_posts_on_post_id", using: :btree
+  add_index "tag_posts", ["tag_id"], name: "index_tag_posts_on_tag_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -103,6 +119,8 @@ ActiveRecord::Schema.define(version: 20150725181604) do
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
   add_foreign_key "opportunities", "companies"
+  add_foreign_key "tag_posts", "posts"
+  add_foreign_key "tag_posts", "tags"
   add_foreign_key "tasks", "companies"
   add_foreign_key "tasks", "employees"
   add_foreign_key "tasks", "users"

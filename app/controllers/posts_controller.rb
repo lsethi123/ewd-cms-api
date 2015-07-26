@@ -1,7 +1,11 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    if params[:published]
+      @posts = Post.where(published: params[:published])
+    else
+      @posts = Post.all
+    end
     render json: @posts
   end
 
@@ -32,6 +36,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :subtitle, :body, :published)
+    params.require(:post).permit(:title, :subtitle, :body, :published, :tags, :tag_ids)
   end
 end
