@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725214741) do
+ActiveRecord::Schema.define(version: 20150728170814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20150725214741) do
 
   add_index "opportunities", ["company_id"], name: "index_opportunities_on_company_id", using: :btree
 
+  create_table "orders", force: :cascade do |t|
+    t.string   "number"
+    t.float    "total"
+    t.string   "state"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "subtitle"
@@ -64,6 +75,15 @@ ActiveRecord::Schema.define(version: 20150725214741) do
     t.boolean  "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.float    "price"
+    t.boolean  "in_stock"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "tag_posts", force: :cascade do |t|
@@ -119,6 +139,7 @@ ActiveRecord::Schema.define(version: 20150725214741) do
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
   add_foreign_key "opportunities", "companies"
+  add_foreign_key "orders", "users"
   add_foreign_key "tag_posts", "posts"
   add_foreign_key "tag_posts", "tags"
   add_foreign_key "tasks", "companies"
