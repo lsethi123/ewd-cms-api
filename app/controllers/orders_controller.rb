@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(product_params)
+    @order = Order.new(order_params)
     if @order.save
       render status: 201, json: @order
     else
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def product_params
+  def order_params
     params.require(:order).permit(:number, :total, :state, :user_id)
   end
 

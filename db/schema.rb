@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728170814) do
+ActiveRecord::Schema.define(version: 20150728171858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20150728170814) do
   end
 
   add_index "employees", ["company_id"], name: "index_employees_on_company_id", using: :btree
+
+  create_table "line_items", force: :cascade do |t|
+    t.float    "price"
+    t.integer  "quantity"
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
 
   create_table "opportunities", force: :cascade do |t|
     t.string   "title"
@@ -138,6 +150,8 @@ ActiveRecord::Schema.define(version: 20150728170814) do
 
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "line_items", "products"
   add_foreign_key "opportunities", "companies"
   add_foreign_key "orders", "users"
   add_foreign_key "tag_posts", "posts"
