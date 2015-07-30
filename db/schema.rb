@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728171858) do
+ActiveRecord::Schema.define(version: 20150729193334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "billing_addresses", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "region"
+    t.integer  "order_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "billing_addresses", ["order_id"], name: "index_billing_addresses_on_order_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -98,6 +114,22 @@ ActiveRecord::Schema.define(version: 20150728171858) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "shipping_addresses", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "region"
+    t.integer  "order_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "shipping_addresses", ["order_id"], name: "index_shipping_addresses_on_order_id", using: :btree
+
   create_table "tag_posts", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "post_id"
@@ -148,12 +180,14 @@ ActiveRecord::Schema.define(version: 20150728171858) do
 
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
+  add_foreign_key "billing_addresses", "orders"
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "opportunities", "companies"
   add_foreign_key "orders", "users"
+  add_foreign_key "shipping_addresses", "orders"
   add_foreign_key "tag_posts", "posts"
   add_foreign_key "tag_posts", "tags"
   add_foreign_key "tasks", "companies"

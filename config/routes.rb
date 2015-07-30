@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :billing_addresses, except: [:new, :edit]
+  resources :shipping_addresses, except: [:new, :edit]
   resources :line_items, except: [:new, :edit]
   resources :orders, except: [:new, :edit]
   resources :posts, except: [:new, :edit]
