@@ -6,6 +6,7 @@ gem 'bcrypt'
 gem 'rails-api'
 gem 'active_model_serializers'
 gem 'pg'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
