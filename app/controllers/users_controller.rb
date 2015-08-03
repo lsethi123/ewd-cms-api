@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.team_id = 1
     if @user.save
       render status: 201, json: { user: { message: "Successfully signed up! You can now log in." } }
     else
