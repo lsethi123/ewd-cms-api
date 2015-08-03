@@ -10,7 +10,9 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_many :tasks
-  
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+
   def set_user_token
     self.token = generate_user_token
   end
