@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :employees, except: [:new, :edit]
   resources :opportunities, except: [:new, :edit]
   resources :tasks, except: [:new, :edit]
+  resources :teams, except: [:new, :edit]
   resources :users, only: [:index, :create, :show, :update, :destroy]
   resource :sessions, only: [:create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
