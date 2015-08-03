@@ -1,4 +1,4 @@
 class ProductSerializer < ActiveModel::Serializer
   embed :ids
-  attributes :id, :title, :description, :price, :in_stock
+  attributes :id, :title, :description, :price, :image, :in_stock
 end
