@@ -4,9 +4,10 @@ class UsersController < ApplicationController
     @users = User.all
     render json: @users
   end
-  
+
   def create
     @user = User.new(user_params)
+    @user.team_id = 1
     if @user.save
       render status: 201, json: { user: { message: "Successfully signed up! You can now log in." } }
     else
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
   end
 
 end
