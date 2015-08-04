@@ -1,5 +1,5 @@
 class TeamSerializer < ActiveModel::Serializer
   embed :ids
-  attributes :id
+  attributes :id, :name
   has_many :users
 end
