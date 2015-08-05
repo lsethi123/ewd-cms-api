@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :checklists, except: [:new, :edit]
+  resources :todos, except: [:new, :edit]
+  resources :boards, except: [:new, :edit]
   resources :events, except: [:new, :edit]
   resources :billing_addresses, except: [:new, :edit]
   resources :shipping_addresses, except: [:new, :edit]
