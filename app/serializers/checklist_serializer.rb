@@ -1,4 +1,4 @@
 class ChecklistSerializer < ActiveModel::Serializer
-  attributes :id, :description
-  has_one :todo
+  embed :ids
+  attributes :id, :step, :description, :todo_id
 end
