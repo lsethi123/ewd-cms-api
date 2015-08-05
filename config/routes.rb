@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events, except: [:new, :edit]
   resources :billing_addresses, except: [:new, :edit]
   resources :shipping_addresses, except: [:new, :edit]
   resources :line_items, except: [:new, :edit]
