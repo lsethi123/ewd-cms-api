@@ -21,11 +21,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id]).update(user_params)
-    if @user
-      render status: 200, json: { user: { message: "Successfully edited your profile!" } }
-    else
-      render status: 400, json: { user: { message: "Something went wrong." } }
-    end
+    render status: 200, json: @user
   end
 
   def destroy
@@ -36,7 +32,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar, :team_id)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :team_id)
   end
 
 end

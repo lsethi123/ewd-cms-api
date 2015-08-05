@@ -1,6 +1,5 @@
 class TodoSerializer < ActiveModel::Serializer
-  attributes :id, :title
-  has_one :user
-  has_one :board
+  embed :ids
+  attributes :id, :title, :user_id, :board_id
   has_many :checklists
 end
