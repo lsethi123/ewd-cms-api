@@ -31,6 +31,6 @@ class ChecklistsController < ApplicationController
   private
 
   def checklist_params
-    params.require(:task).permit(:description, :todo_id)
+    params.require(:checklist).permit(:step, :description, :todo_id)
   end
 end
