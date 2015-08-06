@@ -20,11 +20,13 @@ class CompaniesController < ApplicationController
   end
 
   def update
-
+    @company = Company.find(params[:id]).update(company_params)
+    render json: @company
   end
 
   def destroy
-
+    @company = Company.destroy(params[:id])
+    render json: @company
   end
 
   private
