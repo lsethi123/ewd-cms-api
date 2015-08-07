@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sliders, except: [:new, :edit]
+  resources :pages, except: [:new, :edit]
   resources :images, except: [:new, :edit]
   resources :checklists, except: [:new, :edit]
   resources :todos, except: [:new, :edit]
