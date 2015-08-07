@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805124003) do
+ActiveRecord::Schema.define(version: 20150807033711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150805124003) do
   add_index "boards", ["team_id"], name: "index_boards_on_team_id", using: :btree
 
   create_table "checklists", force: :cascade do |t|
+    t.integer  "step"
     t.text     "description"
     t.integer  "todo_id"
     t.datetime "created_at",  null: false
@@ -86,6 +87,15 @@ ActiveRecord::Schema.define(version: 20150805124003) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "line_items", force: :cascade do |t|
