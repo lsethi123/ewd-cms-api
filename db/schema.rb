@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807033711) do
+ActiveRecord::Schema.define(version: 20150808011417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,22 @@ ActiveRecord::Schema.define(version: 20150807033711) do
     t.datetime "file_updated_at"
   end
 
+  create_table "images_pages", force: :cascade do |t|
+    t.integer "image_id"
+    t.integer "page_id"
+  end
+
+  add_index "images_pages", ["image_id"], name: "index_images_pages_on_image_id", using: :btree
+  add_index "images_pages", ["page_id"], name: "index_images_pages_on_page_id", using: :btree
+
+  create_table "images_sliders", force: :cascade do |t|
+    t.integer "image_id"
+    t.integer "slider_id"
+  end
+
+  add_index "images_sliders", ["image_id"], name: "index_images_sliders_on_image_id", using: :btree
+  add_index "images_sliders", ["slider_id"], name: "index_images_sliders_on_slider_id", using: :btree
+
   create_table "line_items", force: :cascade do |t|
     t.float    "price"
     t.integer  "quantity"
@@ -132,6 +148,12 @@ ActiveRecord::Schema.define(version: 20150807033711) do
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -174,6 +196,52 @@ ActiveRecord::Schema.define(version: 20150807033711) do
   end
 
   add_index "shipping_addresses", ["order_id"], name: "index_shipping_addresses_on_order_id", using: :btree
+
+  create_table "sliders", force: :cascade do |t|
+    t.boolean  "accessibility"
+    t.boolean  "adaptive_height"
+    t.boolean  "autoplay"
+    t.integer  "autoplay_speed"
+    t.boolean  "arrows"
+    t.string   "as_nav_for"
+    t.string   "append_arrows"
+    t.string   "prev_arrow"
+    t.string   "next_arrow"
+    t.boolean  "center_mode"
+    t.string   "center_padding"
+    t.string   "css_ease"
+    t.boolean  "dots"
+    t.boolean  "draggable"
+    t.boolean  "focus_on_select"
+    t.string   "easing"
+    t.integer  "edge_friction"
+    t.boolean  "infinite"
+    t.integer  "initial_slide"
+    t.string   "lazyLoad"
+    t.boolean  "mobile_first"
+    t.boolean  "pause_on_hover"
+    t.boolean  "pause_on_dots_hover"
+    t.integer  "rows"
+    t.string   "slide"
+    t.integer  "slides_per_row"
+    t.integer  "slides_to_show"
+    t.integer  "slides_to_scroll"
+    t.integer  "speed"
+    t.boolean  "swipe"
+    t.boolean  "swipe_to_slide"
+    t.boolean  "touch_move"
+    t.integer  "touch_threshold"
+    t.boolean  "use_css"
+    t.boolean  "variable_width"
+    t.boolean  "vertical"
+    t.boolean  "vertical_swiping"
+    t.boolean  "rtl"
+    t.integer  "page_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "sliders", ["page_id"], name: "index_sliders_on_page_id", using: :btree
 
   create_table "tag_posts", force: :cascade do |t|
     t.integer  "tag_id"
@@ -245,11 +313,16 @@ ActiveRecord::Schema.define(version: 20150807033711) do
   add_foreign_key "checklists", "todos"
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
+  add_foreign_key "images_pages", "images"
+  add_foreign_key "images_pages", "pages"
+  add_foreign_key "images_sliders", "images"
+  add_foreign_key "images_sliders", "sliders"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "opportunities", "companies"
   add_foreign_key "orders", "users"
   add_foreign_key "shipping_addresses", "orders"
+  add_foreign_key "sliders", "pages"
   add_foreign_key "tag_posts", "posts"
   add_foreign_key "tag_posts", "tags"
   add_foreign_key "tasks", "companies"
