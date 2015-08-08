@@ -31,6 +31,6 @@ class PagesController < ApplicationController
   private
 
   def page_params
-    params.require(:task).permit(:title, :slider_id)
+    params.require(:page).permit(:title)
   end
 end
