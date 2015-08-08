@@ -1,4 +1,4 @@
 class Slider < ActiveRecord::Base
   belongs_to :page
-  has_many :images
+  has_and_belongs_to_many :images
 end
