@@ -1,4 +1,5 @@
 class Slider < ActiveRecord::Base
   belongs_to :page
-  has_and_belongs_to_many :images
+  has_many :image_sliders
+  has_many :images, :through => :image_sliders, :dependent => :destroy
 end
