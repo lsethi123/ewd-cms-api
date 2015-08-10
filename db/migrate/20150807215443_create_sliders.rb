@@ -21,7 +21,7 @@ class CreateSliders < ActiveRecord::Migration
       t.integer :edge_friction
       t.boolean :infinite
       t.integer :initial_slide
-      t.string :lazyLoad
+      t.string :lazy_load
       t.boolean :mobile_first
       t.boolean :pause_on_hover
       t.boolean :pause_on_dots_hover

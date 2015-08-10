@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808011417) do
+ActiveRecord::Schema.define(version: 20150810204428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 20150808011417) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "image_sliders", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "slider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "image_sliders", ["image_id"], name: "index_image_sliders_on_image_id", using: :btree
+  add_index "image_sliders", ["slider_id"], name: "index_image_sliders_on_slider_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.datetime "created_at",        null: false
@@ -218,7 +228,7 @@ ActiveRecord::Schema.define(version: 20150808011417) do
     t.integer  "edge_friction"
     t.boolean  "infinite"
     t.integer  "initial_slide"
-    t.string   "lazyLoad"
+    t.string   "lazy_load"
     t.boolean  "mobile_first"
     t.boolean  "pause_on_hover"
     t.boolean  "pause_on_dots_hover"
@@ -314,6 +324,8 @@ ActiveRecord::Schema.define(version: 20150808011417) do
   add_foreign_key "checklists", "todos"
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
+  add_foreign_key "image_sliders", "images"
+  add_foreign_key "image_sliders", "sliders"
   add_foreign_key "images_pages", "images"
   add_foreign_key "images_pages", "pages"
   add_foreign_key "images_sliders", "images"
