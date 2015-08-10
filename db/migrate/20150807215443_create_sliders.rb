@@ -15,6 +15,7 @@ class CreateSliders < ActiveRecord::Migration
       t.string :css_ease
       t.boolean :dots
       t.boolean :draggable
+      t.boolean :fade
       t.boolean :focus_on_select
       t.string :easing
       t.integer :edge_friction
