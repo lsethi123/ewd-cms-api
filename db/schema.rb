@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810204428) do
+ActiveRecord::Schema.define(version: 20150811223853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,22 @@ ActiveRecord::Schema.define(version: 20150810204428) do
   end
 
   add_index "boards", ["team_id"], name: "index_boards_on_team_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_products", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "product_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "category_products", ["category_id"], name: "index_category_products_on_category_id", using: :btree
+  add_index "category_products", ["product_id"], name: "index_category_products_on_product_id", using: :btree
 
   create_table "checklists", force: :cascade do |t|
     t.integer  "step"
@@ -88,6 +104,16 @@ ActiveRecord::Schema.define(version: 20150810204428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "image_products", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "image_products", ["image_id"], name: "index_image_products_on_image_id", using: :btree
+  add_index "image_products", ["product_id"], name: "index_image_products_on_product_id", using: :btree
 
   create_table "image_sliders", force: :cascade do |t|
     t.integer  "image_id"
@@ -321,9 +347,13 @@ ActiveRecord::Schema.define(version: 20150810204428) do
 
   add_foreign_key "billing_addresses", "orders"
   add_foreign_key "boards", "teams"
+  add_foreign_key "category_products", "categories"
+  add_foreign_key "category_products", "products"
   add_foreign_key "checklists", "todos"
   add_foreign_key "companies", "teams"
   add_foreign_key "employees", "companies"
+  add_foreign_key "image_products", "images"
+  add_foreign_key "image_products", "products"
   add_foreign_key "image_sliders", "images"
   add_foreign_key "image_sliders", "sliders"
   add_foreign_key "images_pages", "images"
