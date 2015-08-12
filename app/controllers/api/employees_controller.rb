@@ -1,4 +1,4 @@
-class EmployeesController < ApplicationController
+class Api::EmployeesController < ApplicationController
   def index
     if params[:company_id]
       @employees = Employee.where(company_id: params[:company_id])

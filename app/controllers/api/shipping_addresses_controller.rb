@@ -1,4 +1,4 @@
-class ShippingAddressesController < ApplicationController
+class Api::ShippingAddressesController < ApplicationController
   def index
     if params[:order_id]
       @shipping_addresses = ShippingAddress.where(order_id: params[:order_id])

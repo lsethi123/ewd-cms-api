@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class Api::TasksController < ApplicationController
   def index
     if params[:company_id]
       @tasks = Task.where(company_id: params[:company_id])

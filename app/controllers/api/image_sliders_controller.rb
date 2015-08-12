@@ -1,4 +1,4 @@
-class ImageSlidersController < ApplicationController
+class Api::ImageSlidersController < ApplicationController
   def index
     @images = ImageSlider.all
     render json: @images

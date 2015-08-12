@@ -1,8 +1,10 @@
-class PostsController < ApplicationController
+class Api::PostsController < ApplicationController
 
   def index
     if params[:published]
       @posts = Post.where(published: params[:published])
+    elsif params[:tag_ids]
+      @posts = Post.includes(:tag_posts).where('tag_posts.tag_id = ?', params[:tag_ids]).references(:tag_posts)
     else
       @posts = Post.all
     end

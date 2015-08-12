@@ -1,4 +1,4 @@
-class SlidersController < ApplicationController
+class Api::SlidersController < ApplicationController
   def index
     @sliders = Slider.all
     render json: @sliders

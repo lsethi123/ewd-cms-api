@@ -1,4 +1,4 @@
-class ChecklistsController < ApplicationController
+class Api::ChecklistsController < ApplicationController
   def index
     @checklists = Checklist.all
     render json: @checklists

@@ -1,4 +1,4 @@
-class OpportunitiesController < ApplicationController
+class Api::OpportunitiesController < ApplicationController
   def index
     if params[:company_id]
       @opportunities = Opportunity.where(company_id: params[:company_id])

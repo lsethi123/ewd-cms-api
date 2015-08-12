@@ -1,12 +1,12 @@
-class TagPostsController < ApplicationController
+class Api::TagsController < ApplicationController
 
   def index
-    @tags = TagPost.all
+    @tags = Tag.all
     render json: @tags
   end
 
   def create
-    @tag = TagPost.new(tag_params)
+    @tag = Tag.new(tag_params)
     if @tag.save
       render status: 201, json: @tag
     else
@@ -15,24 +15,24 @@ class TagPostsController < ApplicationController
   end
 
   def show
-    @tag = TagPost.find(params[:id])
+    @tag = Tag.find(params[:id])
     render json: @tag
   end
 
   def update
-    @tag = TagPost.find(params[:id]).update(tag_params)
+    @tag = Tag.find(params[:id]).update(tag_params)
     render json: @tag
   end
 
   def destroy
-    @tag = TagPost.destroy(params[:id])
+    @tag = Tag.destroy(params[:id])
     render json: @tag
   end
 
   private
 
   def tag_params
-    params.require(:tag_post).permit(:tag_id, :post_id)
+    params.require(:tag).permit(:name, :posts, :post_ids)
   end
 
 end

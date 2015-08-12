@@ -1,7 +1,11 @@
-class ProductsController < ApplicationController
+class Api::ProductsController < ApplicationController
 
   def index
-    @products = Product.all
+    if params[:category_ids]
+      @products = Product.includes(:category_products).where('category_products.category_id = ?', params[:category_ids]).references(:category_products)
+    else
+      @products = Product.all
+    end
     render json: @products
   end
 

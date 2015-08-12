@@ -1,4 +1,4 @@
-class BillingAddressesController < ApplicationController
+class Api::BillingAddressesController < ApplicationController
   def index
     if params[:order_id]
       @billing_addresses = BillingAddress.where(order_id: params[:order_id])

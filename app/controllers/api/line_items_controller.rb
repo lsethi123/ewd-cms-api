@@ -1,4 +1,4 @@
-class LineItemsController < ApplicationController
+class Api::LineItemsController < ApplicationController
   def index
     if params[:order_id]
       @line_items = LineItem.where(order_id: params[:order_id])
