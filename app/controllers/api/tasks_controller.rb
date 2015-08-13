@@ -2,6 +2,8 @@ class Api::TasksController < ApplicationController
   def index
     if params[:company_id]
       @tasks = Task.where(company_id: params[:company_id])
+    elsif params[:user_id]
+      @tasks = Task.where(user_id: params[:user_id]).limit(5)
     else
       @tasks = Task.all
     end

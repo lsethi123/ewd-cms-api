@@ -1,6 +1,10 @@
 class Api::TodosController < ApplicationController
   def index
-    @todos = Todo.all
+    if params[:user_id]
+      @todos = Todo.where(user_id: params[:user_id]).limit(5)
+    else
+      @todos = Todo.all
+    end
     render json: @todos
   end
 
