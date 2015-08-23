@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811223853) do
+ActiveRecord::Schema.define(version: 20150822235950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 20150811223853) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -141,14 +141,6 @@ ActiveRecord::Schema.define(version: 20150811223853) do
 
   add_index "images_pages", ["image_id"], name: "index_images_pages_on_image_id", using: :btree
   add_index "images_pages", ["page_id"], name: "index_images_pages_on_page_id", using: :btree
-
-  create_table "images_sliders", force: :cascade do |t|
-    t.integer "image_id"
-    t.integer "slider_id"
-  end
-
-  add_index "images_sliders", ["image_id"], name: "index_images_sliders_on_image_id", using: :btree
-  add_index "images_sliders", ["slider_id"], name: "index_images_sliders_on_slider_id", using: :btree
 
   create_table "line_items", force: :cascade do |t|
     t.float    "price"
@@ -209,12 +201,8 @@ ActiveRecord::Schema.define(version: 20150811223853) do
     t.text     "description"
     t.float    "price"
     t.boolean  "in_stock"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "shipping_addresses", force: :cascade do |t|
@@ -323,6 +311,8 @@ ActiveRecord::Schema.define(version: 20150811223853) do
     t.integer  "board_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "due_date"
+    t.date     "date"
   end
 
   add_index "todos", ["board_id"], name: "index_todos_on_board_id", using: :btree
@@ -358,8 +348,6 @@ ActiveRecord::Schema.define(version: 20150811223853) do
   add_foreign_key "image_sliders", "sliders"
   add_foreign_key "images_pages", "images"
   add_foreign_key "images_pages", "pages"
-  add_foreign_key "images_sliders", "images"
-  add_foreign_key "images_sliders", "sliders"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
   add_foreign_key "opportunities", "companies"
