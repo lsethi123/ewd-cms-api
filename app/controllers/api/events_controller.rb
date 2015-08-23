@@ -31,7 +31,7 @@ class Api::EventsController < ApplicationController
 
   private
 
-  def task_params
-    params.require(:event).permit(:title, :starts_at, :ends_at)
+  def event_params
+    params.require(:event).permit(:title, :date, :start, :end)
   end
 end

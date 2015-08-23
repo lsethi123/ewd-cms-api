@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20150822235950) do
     t.datetime "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date"
   end
 
   create_table "image_products", force: :cascade do |t|
@@ -312,7 +313,6 @@ ActiveRecord::Schema.define(version: 20150822235950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "due_date"
-    t.date     "date"
   end
 
   add_index "todos", ["board_id"], name: "index_todos_on_board_id", using: :btree

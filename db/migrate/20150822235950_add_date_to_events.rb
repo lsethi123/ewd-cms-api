@@ -1,7 +1,7 @@
 class AddDateToEvents < ActiveRecord::Migration
   def change
-    change_table :todos do |t|
-      t.date :date
+    change_table :events do |t|
+      t.datetime :date
     end
   end
 end
