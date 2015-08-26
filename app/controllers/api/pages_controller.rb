@@ -1,6 +1,10 @@
 class Api::PagesController < ApplicationController
   def index
-    @pages = Page.all
+    if params[:website_id]
+      @pages = Page.where(website_id: params[:website_id])
+    else
+      @pages = Page.all
+    end
     render json: @pages
   end
 
@@ -31,6 +35,6 @@ class Api::PagesController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:title)
+    params.require(:page).permit(:title, :website_id)
   end
 end

@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  has_many :tasks
-  has_many :todos
+  has_many :tasks, :dependent => :destroy
+  has_many :todos, :dependent => :destroy
+  has_many :websites, :dependent => :destroy
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 

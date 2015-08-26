@@ -1,7 +1,7 @@
 class Api::ConversationsController < ApplicationController
 
   def index
-    @conversations = Conversation.where({recipient_id: params[:recipient_id], :sender_id: params[:sender_id]})
+    @conversations = Conversation.where({recipient_id: params[:recipient_id], sender_id: params[:sender_id]})
     render json: @conversations
   end
 
@@ -32,7 +32,7 @@ class Api::ConversationsController < ApplicationController
   private
 
   def conversation_params
-    params.require(:conversation).permit(:sender_id, :recipient_id, :message)
+    params.require(:conversation).permit(:sender_id, :recipient_id)
   end
 
 end

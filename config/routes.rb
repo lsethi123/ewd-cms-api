@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
+    resources :websites, except: [:new, :edit]
     resources :image_posts, except: [:new, :edit]
     resources :conversations, except: [:new, :edit]
     resources :messages, except: [:new, :edit]
