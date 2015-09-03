@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824205819) do
+ActiveRecord::Schema.define(version: 20150826004721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,19 @@ ActiveRecord::Schema.define(version: 20150824205819) do
 
   add_index "companies", ["team_id"], name: "index_companies_on_team_id", using: :btree
 
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.integer  "conversation_id"
+    t.text     "message"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "conversations", ["conversation_id"], name: "index_conversations_on_conversation_id", using: :btree
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+
   create_table "employees", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -99,12 +112,25 @@ ActiveRecord::Schema.define(version: 20150824205819) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date"
   end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "image_posts", force: :cascade do |t|
+    t.integer  "image_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "image_posts", ["image_id"], name: "index_image_posts_on_image_id", using: :btree
+  add_index "image_posts", ["post_id"], name: "index_image_posts_on_post_id", using: :btree
 
   create_table "image_products", force: :cascade do |t|
     t.integer  "image_id"
@@ -157,11 +183,13 @@ ActiveRecord::Schema.define(version: 20150824205819) do
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "conversation_id"
     t.text     "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "opportunities", force: :cascade do |t|
@@ -191,7 +219,10 @@ ActiveRecord::Schema.define(version: 20150824205819) do
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "website_id"
   end
+
+  add_index "pages", ["website_id"], name: "index_pages_on_website_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -344,13 +375,27 @@ ActiveRecord::Schema.define(version: 20150824205819) do
 
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
+  create_table "websites", force: :cascade do |t|
+    t.string   "title"
+    t.string   "address"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "websites", ["user_id"], name: "index_websites_on_user_id", using: :btree
+
   add_foreign_key "billing_addresses", "orders"
   add_foreign_key "boards", "teams"
   add_foreign_key "category_products", "categories"
   add_foreign_key "category_products", "products"
   add_foreign_key "checklists", "todos"
   add_foreign_key "companies", "teams"
+  add_foreign_key "conversations", "conversations"
   add_foreign_key "employees", "companies"
+  add_foreign_key "events", "users"
+  add_foreign_key "image_posts", "images"
+  add_foreign_key "image_posts", "posts"
   add_foreign_key "image_products", "images"
   add_foreign_key "image_products", "products"
   add_foreign_key "image_sliders", "images"
@@ -359,9 +404,11 @@ ActiveRecord::Schema.define(version: 20150824205819) do
   add_foreign_key "images_pages", "pages"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "opportunities", "companies"
   add_foreign_key "orders", "users"
+  add_foreign_key "pages", "websites"
   add_foreign_key "shipping_addresses", "orders"
   add_foreign_key "sliders", "pages"
   add_foreign_key "tag_posts", "posts"
@@ -372,4 +419,5 @@ ActiveRecord::Schema.define(version: 20150824205819) do
   add_foreign_key "todos", "boards"
   add_foreign_key "todos", "users"
   add_foreign_key "users", "teams"
+  add_foreign_key "websites", "users"
 end

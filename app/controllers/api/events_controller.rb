@@ -1,7 +1,11 @@
 class Api::EventsController < ApplicationController
 
   def index
-    @events = Event.all
+    if params[:user_id]
+      @events = Event.where(user_id: params[:user_id])
+    else
+      @events = Event.all
+    end
     render json: @events
   end
 
@@ -32,6 +36,6 @@ class Api::EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :date, :start, :end)
+    params.require(:event).permit(:title, :date, :starts_at, :ends_at, :user_id)
   end
 end

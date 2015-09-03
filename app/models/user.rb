@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :todos, :dependent => :destroy
   has_many :websites, :dependent => :destroy
+  has_many :events, :dependent => :destroy
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
